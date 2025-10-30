@@ -56,7 +56,7 @@ fly secrets set GEMINI_API_KEY=tu_api_key_aqui
 
 ---
 
-### 3️⃣ Desplegar la Aplicación
+### 3️⃣ Desplegar la Aplicación (Primera Vez)
 
 Desde la carpeta de tu proyecto, ejecuta:
 
@@ -64,7 +64,11 @@ Desde la carpeta de tu proyecto, ejecuta:
 fly launch
 ```
 
+> 📝 **Nota:** `fly launch` solo se usa la **primera vez**. Para actualizaciones posteriores usa `fly deploy`.
+
 **Importante:** Cuando te pregunte:
+- "App Name" → Puedes aceptar el sugerido o escribir uno personalizado
+- "Choose a region for deployment" → Elige la más cercana (ej: mia para Miami)
 - "Would you like to set up a Postgresql database?" → **NO**
 - "Would you like to set up an Upstash Redis database?" → **NO**
 - "Would you like to deploy now?" → **YES**
@@ -132,7 +136,35 @@ El plan gratuito incluye:
 - ✅ URL pública: `tu-app.fly.dev`
 - ✅ Auto-sleep cuando no hay tráfico (se despierta automáticamente con visitas)
 
-**Con visitas cada 5 minutos, tu app se mantendrá activa automáticamente.**
+### 😴 Sobre el Auto-Sleep
+
+Tu app está configurada con `min_machines_running = 0` (ahorro máximo):
+- 🟢 **Ventaja:** 100% gratuito, sin costos
+- 🟡 **Efecto:** Después de ~5 minutos sin visitas, la app se "duerme"
+- ⚡ **Primera visita después de dormir:** Puede tardar 2-3 segundos en "despertar"
+- 🔄 **Visitas siguientes:** Respuesta instantánea
+
+**Con visitas cada 5 minutos, tu app se mantendrá activa la mayoría del tiempo.**
+
+### 🚀 ¿Quieres 100% uptime sin delays?
+
+Si necesitas que tu app esté **siempre despierta** (sin latencia al despertar):
+
+1. Edita el archivo `fly.toml` y cambia:
+```toml
+min_machines_running = 0
+```
+por:
+```toml
+min_machines_running = 1
+```
+
+2. Vuelve a desplegar:
+```bash
+fly deploy
+```
+
+> ⚠️ **Nota:** Esto puede generar un pequeño costo mensual (aprox $1.94/mes). Verifica los precios actuales en https://fly.io/docs/about/pricing/
 
 ---
 
