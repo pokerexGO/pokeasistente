@@ -1,170 +1,120 @@
-# 🚀 Guía de Deployment en Fly.io
+# 🚀 Guía de Deployment en Vercel
 
-Esta guía te ayudará a desplegar tu aplicación PokeAsistente IA en Fly.io de forma **GRATUITA**.
+Esta guía te ayudará a desplegar tu aplicación PokeAsistente IA en Vercel de forma **100% GRATUITA** y **SIN TARJETA DE CRÉDITO**.
 
-## 📋 Requisitos Previos
+## ✅ Ventajas de Vercel
 
-1. Una cuenta en Fly.io (gratuita)
-2. Tarjeta de crédito/débito (para verificación, **NO te cobrarán** si te mantienes en el plan gratuito)
+- 🆓 **Gratis para siempre** (sin límite de tiempo)
+- 💳 **NO requiere tarjeta de crédito**
+- ⚡ **Muy rápido** (CDN global)
+- 🔒 **HTTPS automático**
+- 🔄 **Deploy automático** desde GitHub
+- 🌍 **Disponible 24/7** (sin auto-sleep)
 
 ---
 
-## 🔧 Instalación de Fly CLI
+## 📋 Requisitos Previos
 
-### Windows (PowerShell como Administrador):
-```powershell
-iwr https://fly.io/install.ps1 -useb | iex
-```
-
-### macOS:
-```bash
-brew install flyctl
-```
-
-### Linux/macOS (alternativa):
-```bash
-curl -L https://fly.io/install.sh | sh
-```
+1. Una cuenta en GitHub (gratis)
+2. Una cuenta en Vercel (gratis, no requiere tarjeta)
+3. Tu código subido a un repositorio de GitHub
 
 ---
 
 ## 🎯 Pasos para Desplegar
 
-### 1️⃣ Autenticación
+### 1️⃣ Subir tu código a GitHub
 
-```bash
-# Si eres nuevo usuario
-fly auth signup
+Si aún no tienes tu código en GitHub:
 
-# Si ya tienes cuenta
-fly auth login
-```
-
-Esto abrirá tu navegador para que inicies sesión.
+1. Ve a [github.com](https://github.com) y crea una cuenta (si no tienes)
+2. Crea un nuevo repositorio
+3. Descarga tu proyecto de Replit (menú → Download as ZIP)
+4. Descomprime y sube los archivos a tu repositorio de GitHub
 
 ---
 
-### 2️⃣ Configurar tu API Key de Gemini
+### 2️⃣ Conectar con Vercel
 
-**MUY IMPORTANTE:** Tu aplicación necesita la API key de Gemini para funcionar.
-
-```bash
-fly secrets set GEMINI_API_KEY=tu_api_key_aqui
-```
-
-> ⚠️ Reemplaza `tu_api_key_aqui` con tu API key real de Gemini.
+1. Ve a [vercel.com](https://vercel.com)
+2. Haz clic en **"Sign Up"** (Registrarse)
+3. Selecciona **"Continue with GitHub"**
+4. Autoriza a Vercel para acceder a tus repositorios
 
 ---
 
-### 3️⃣ Desplegar la Aplicación (Primera Vez)
+### 3️⃣ Importar tu Proyecto
 
-Desde la carpeta de tu proyecto, ejecuta:
-
-```bash
-fly launch
-```
-
-> 📝 **Nota:** `fly launch` solo se usa la **primera vez**. Para actualizaciones posteriores usa `fly deploy`.
-
-**Importante:** Cuando te pregunte:
-- "App Name" → Puedes aceptar el sugerido o escribir uno personalizado
-- "Choose a region for deployment" → Elige la más cercana (ej: mia para Miami)
-- "Would you like to set up a Postgresql database?" → **NO**
-- "Would you like to set up an Upstash Redis database?" → **NO**
-- "Would you like to deploy now?" → **YES**
-
-El proceso tomará unos minutos. Al finalizar verás algo como:
-
-```
-Visit your newly deployed app at https://pokeasistente.fly.dev
-```
+1. En el dashboard de Vercel, haz clic en **"Add New Project"**
+2. Busca tu repositorio **"pokeasistente"** (o como lo hayas llamado)
+3. Haz clic en **"Import"**
 
 ---
 
-### 4️⃣ Verificar que Funciona
+### 4️⃣ Configurar Variables de Entorno
 
-```bash
-# Abrir tu app en el navegador
-fly open
+**MUY IMPORTANTE:** Debes configurar tu API key de Gemini.
 
-# Ver los logs en tiempo real
-fly logs
+1. En la página de configuración del proyecto, ve a **"Environment Variables"**
+2. Agrega la siguiente variable:
+   - **Name:** `GEMINI_API_KEY`
+   - **Value:** Tu API key de Gemini (la que usas actualmente)
+3. Haz clic en **"Add"**
+
+---
+
+### 5️⃣ Deploy
+
+1. Deja todas las demás configuraciones por defecto
+2. Haz clic en **"Deploy"**
+3. Espera 1-2 minutos mientras Vercel construye tu app
+
+¡Listo! Vercel te dará una URL como:
+```
+https://pokeasistente.vercel.app
 ```
 
 ---
 
 ## 🔄 Actualizar tu Aplicación
 
-Cuando hagas cambios en tu código:
+Cada vez que hagas cambios en tu código:
 
-```bash
-fly deploy
-```
+1. Haz commit y push a GitHub
+2. Vercel automáticamente detectará los cambios
+3. Deploy automático en ~30 segundos
+
+**¡No necesitas hacer nada más!**
 
 ---
 
 ## 📊 Comandos Útiles
 
-```bash
-# Ver el estado de tu app
-fly status
+### Ver logs en tiempo real:
+1. Ve a tu proyecto en Vercel
+2. Selecciona el deployment
+3. Click en "Logs"
 
-# Ver logs en tiempo real
-fly logs
-
-# Ver información de tu app
-fly info
-
-# Pausar tu app (deja de funcionar)
-fly scale count 0
-
-# Reactivar tu app
-fly scale count 1
-
-# Eliminar tu app completamente
-fly apps destroy pokeasistente
-```
+### Variables de entorno:
+1. Ve a Settings → Environment Variables
+2. Agrega, edita o elimina variables
+3. Redeploy para aplicar cambios
 
 ---
 
-## 💰 Plan Gratuito de Fly.io
+## 💰 Plan Gratuito de Vercel
 
-El plan gratuito incluye:
-- ✅ 3 máquinas virtuales compartidas
-- ✅ 256MB de RAM por máquina
-- ✅ SSL/HTTPS automático
-- ✅ URL pública: `tu-app.fly.dev`
-- ✅ Auto-sleep cuando no hay tráfico (se despierta automáticamente con visitas)
+El plan Hobby (gratuito) incluye:
+- ✅ Proyectos ilimitados
+- ✅ 100 GB de ancho de banda/mes
+- ✅ 100,000 invocaciones serverless/mes
+- ✅ HTTPS y SSL automático
+- ✅ Deploy automático desde Git
+- ✅ **NO requiere tarjeta de crédito**
 
-### 😴 Sobre el Auto-Sleep
+**Límite importante:** Solo para uso personal/hobby (NO comercial)
 
-Tu app está configurada con `min_machines_running = 0` (ahorro máximo):
-- 🟢 **Ventaja:** 100% gratuito, sin costos
-- 🟡 **Efecto:** Después de ~5 minutos sin visitas, la app se "duerme"
-- ⚡ **Primera visita después de dormir:** Puede tardar 2-3 segundos en "despertar"
-- 🔄 **Visitas siguientes:** Respuesta instantánea
-
-**Con visitas cada 5 minutos, tu app se mantendrá activa la mayoría del tiempo.**
-
-### 🚀 ¿Quieres 100% uptime sin delays?
-
-Si necesitas que tu app esté **siempre despierta** (sin latencia al despertar):
-
-1. Edita el archivo `fly.toml` y cambia:
-```toml
-min_machines_running = 0
-```
-por:
-```toml
-min_machines_running = 1
-```
-
-2. Vuelve a desplegar:
-```bash
-fly deploy
-```
-
-> ⚠️ **Nota:** Esto puede generar un pequeño costo mensual (aprox $1.94/mes). Verifica los precios actuales en https://fly.io/docs/about/pricing/
+Con visitas cada 5 minutos, estarás muy por debajo de los límites.
 
 ---
 
@@ -172,40 +122,57 @@ fly deploy
 
 Una vez desplegado, tu aplicación estará disponible en:
 
-**https://pokeasistente.fly.dev**
+**https://pokeasistente.vercel.app**
 
-(o el nombre que hayas elegido)
+(O el nombre que hayas elegido)
+
+Puedes agregar un dominio personalizado gratis si lo deseas.
 
 ---
 
 ## ❓ Problemas Comunes
 
 ### Error: "GEMINI_API_KEY no definida"
-```bash
-fly secrets set GEMINI_API_KEY=tu_api_key
-```
+**Solución:**
+1. Ve a Settings → Environment Variables
+2. Verifica que `GEMINI_API_KEY` esté configurada
+3. Redeploy el proyecto
 
-### Ver todas las variables secretas
-```bash
-fly secrets list
-```
+### Error: "Function timeout"
+**Solución:**
+- Vercel tiene un timeout de 10 segundos en el plan gratuito
+- Si Gemini tarda mucho, reduce la longitud del prompt
 
-### Mi app no arranca
-```bash
-# Ver los logs para identificar el error
-fly logs
-
-# Reiniciar la app
-fly apps restart pokeasistente
-```
+### La app no carga
+**Solución:**
+1. Revisa los logs en Vercel
+2. Verifica que todos los archivos estén en GitHub
+3. Asegúrate de que `vercel.json` esté presente
 
 ---
 
 ## 🎉 ¡Listo!
 
-Tu aplicación ahora está en línea 24/7, incluso cuando tu PC esté apagada.
+Tu aplicación ahora está en línea 24/7, completamente gratis y sin necesidad de tarjeta de crédito.
 
 **URLs Importantes:**
-- App: https://pokeasistente.fly.dev
-- Dashboard: https://fly.io/dashboard
-- Documentación: https://fly.io/docs
+- Tu App: https://pokeasistente.vercel.app
+- Dashboard: https://vercel.com/dashboard
+- Documentación: https://vercel.com/docs
+
+---
+
+## 📝 Notas Adicionales
+
+### Diferencias con el servidor local:
+- ✅ Tu app ahora usa **funciones serverless** (más eficiente)
+- ✅ Se escala automáticamente según el tráfico
+- ✅ No hay "cold start" perceptible
+- ✅ CDN global = más rápido en todo el mundo
+
+### Uso comercial:
+Si en el futuro tu proyecto genera ingresos, necesitarás actualizar al plan Pro ($20/mes). Pero para proyectos personales, el plan gratuito es perfecto.
+
+---
+
+**¿Necesitas ayuda?** Consulta la [documentación de Vercel](https://vercel.com/docs) o busca en la comunidad.
