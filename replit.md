@@ -131,18 +131,19 @@ Client → Express Server → Gemini AI REST API → Response
 
 ### Deployment Platform
 
-**Fly.io**
-- **Purpose:** Production hosting platform for 24/7 uptime
-- **Plan:** Free tier with auto-sleep (wakes on request)
-- **Requirements:** Credit card for verification (no charges on free tier)
-- **Tools:** Fly CLI for deployment automation
+**Vercel**
+- **Purpose:** Production serverless hosting platform for 24/7 uptime
+- **Plan:** Free Hobby plan (forever free, no time limits)
+- **Requirements:** GitHub account (no credit card required)
+- **Tools:** Vercel CLI or GitHub integration for deployment
 - **Configuration:** 
-  - Dockerfile for containerization
-  - fly.toml with autoscale settings (min_machines_running = 0 for free tier)
-  - Port 8080 for production (5000 for Replit development)
+  - Serverless functions in `api/` directory
+  - vercel.json for routing configuration
+  - Static files served from `public/`
 - **Deployment Guide:** See DEPLOYMENT.md for complete instructions
-- **Auto-sleep Behavior:** App sleeps after ~5 minutes of inactivity, wakes in 2-3 seconds on first request
-- **URL:** `pokeasistente.fly.dev` (or custom domain)
+- **Architecture:** Serverless functions (no cold start issues)
+- **URL:** `pokeasistente.vercel.app` (or custom domain)
+- **Benefits:** No auto-sleep, global CDN, automatic HTTPS, instant scaling
 
 ### Runtime Environment
 
