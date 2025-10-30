@@ -21,7 +21,7 @@ if (!API_KEY) {
 // -------------------------------
 // 🔍 RUTA /pokemon (consulta a Gemini)
 // -------------------------------
-app.post("/pokemon", async (req, res) => {
+app.post("/api/pokemon", async (req, res) => {
   const pokemon = req.body.pokemon?.trim();
 
   console.log("\n[REQUEST] POST /pokemon");
