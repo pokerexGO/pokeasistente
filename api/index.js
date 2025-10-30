@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 // -------------------------------
 const MODEL = "gemini-2.0-flash";
 const API_KEY = process.env.GEMINI_API_KEY;
+console.log("🔐 API KEY DETECTADA:", API_KEY ? "Sí ✅" : "No ❌");
 
 if (!API_KEY) {
   console.error("❌ ERROR: Falta definir GEMINI_API_KEY");
